@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require_relative 'lib/hash_tools'
+
 require 'rubygems'
 require 'bundler'
 begin
@@ -13,12 +15,13 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
+  gem.version = HashTools::VERSION
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "hash_tools"
   gem.homepage = "http://github.com/julik/hash_tools"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Do useful things to Ruby Hashes}
+  gem.summary = %Q{Do useful things to Ruby Hashes}
   gem.email = "me@julik.nl"
   gem.authors = ["Julik Tarkhanov"]
   # dependencies defined in Gemfile

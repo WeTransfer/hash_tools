@@ -1,4 +1,6 @@
 module HashTools
+  VERSION = '1.0.0'
+  
   require_relative 'hash_tools/indifferent'
   
   FWD_SLASH = '/' # Used as the default separator for deep_fetch
