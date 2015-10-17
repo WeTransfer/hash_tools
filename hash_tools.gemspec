@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md",
     "Rakefile",
+    "hash_tools.gemspec",
     "lib/hash_tools.rb",
     "lib/hash_tools/indifferent.rb",
     "spec/hash_tools/indifferent_spec.rb",
