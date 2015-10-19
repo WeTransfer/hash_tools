@@ -5,7 +5,7 @@ And mostly without being too smart. Does not require ActiveSupport.
 
 Transforming the keys of a hash:
 
-    HashTools::Transform.transform_keys_of({'foo' => 1}, &:upcase) #=> {'FOO' => 1}, works recursively
+    HashTools.transform_keys_of({'foo' => 1}, &:upcase) #=> {'FOO' => 1}, works recursively
 
 Fetching multiple values from a Hash:
 
