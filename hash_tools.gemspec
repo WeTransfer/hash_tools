@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
-  s.authors = ["Julik Tarkhanov"]
+  s.authors = ["WeTransfer"]
   s.date = "2015-10-17"
   s.description = "Do useful things to Ruby Hashes"
-  s.email = "me@julik.nl"
+  s.email = "info@wetransfer.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.md"
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     "spec/hash_tools_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/julik/hash_tools"
+  s.homepage = "http://github.com/wetransfer/hash_tools"
   s.licenses = ["MIT"]
   s.rubygems_version = "2.2.2"
   s.summary = "Do useful things to Ruby Hashes"
