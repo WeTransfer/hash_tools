@@ -1,5 +1,7 @@
 # hash_tools
 
+[![Build Status](https://travis-ci.org/WeTransfer/hash_tools.svg?branch=master)](https://travis-ci.org/WeTransfer/hash_tools)
+
 Do things to Hashes, without injecting methods into them or extending core classes of the language.
 And mostly without being too smart. Does not require ActiveSupport.
 
@@ -47,6 +49,6 @@ Check the documentation for the separate modules for more.
 
 ## Copyright
 
-Copyright (c) 2015 Julik Tarkhanov. See LICENSE.txt for
+Copyright (c) 2015 WeTransfer. See LICENSE.txt for
 further details.
 
