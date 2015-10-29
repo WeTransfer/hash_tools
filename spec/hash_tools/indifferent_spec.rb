@@ -21,6 +21,15 @@ describe HashTools::Indifferent do
     expect(wrapper.keys).to eq(h_syms.keys)
   end
   
+  it 'raises NoMethodError when accessing missing keys via dot notation' do
+    h_syms = {a: 1, 'b' => 2}
+    wrapper = described_class.new(h_syms)
+    
+    expect {
+      wrapper.c
+    }.to raise_error(NoMethodError)
+  end
+  
   it 'supports indifferent access to deeply nested hashes' do
     h_deep = {a: {:b => 1, 'c' => 2}}
     
