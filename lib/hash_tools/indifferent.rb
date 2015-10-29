@@ -82,6 +82,15 @@ class HashTools::Indifferent < SimpleDelegator
     end
   end
   
+  def method_missing(method, *opts)
+    m = method.to_s
+    if self.key?(m)
+      return self[m]
+    elsif self.key?(m.to_sym)
+      return self[m.to_sym]
+    end
+  end
+  
   alias_method :has_key?, :key?
   
   private
