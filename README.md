@@ -34,6 +34,7 @@ A simple indifferent access proxy:
     h = {'foo'=>{bar: 2}}
     w = HashTools.indifferent(h)
     w[:foo][:bar] #=> 2
+    w.foo.bar #=> 2
 
 Check the documentation for the separate modules for more.
 
