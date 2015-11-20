@@ -75,6 +75,9 @@ class HashTools::Indifferent < SimpleDelegator
     end
   end
   
+  # Maps over keys and values of the Hash. The key class will be preserved (i.e. within
+  # the block the keys will be either Strings or Symbols depending on what is used in the
+  # underlying Hash).
   def map(&blk)
     keys.map do |k| 
       tk = __transform_key__(k)
