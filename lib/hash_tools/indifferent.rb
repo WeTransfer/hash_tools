@@ -87,7 +87,7 @@ class HashTools::Indifferent < SimpleDelegator
     super
   end
   
-  def respond_to_missing?(method_name)
+  def respond_to_missing?(method_name, include_private=false)
     key?(method_name)
   end
   
