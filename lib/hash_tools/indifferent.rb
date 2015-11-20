@@ -85,6 +85,16 @@ class HashTools::Indifferent < SimpleDelegator
     end
   end
   
+  # There is a quirk whereby the delegate library will not pass `to_json` to the
+  # contained Hash, and the Indifferent would the JSON-serialize as a String.
+  # We have to forward this method explicitly.
+  #
+  # In general, the method will never be called by the user directly but will instead
+  # be excercised by `JSON.dump()` and friends. 
+  def to_json(*serializer_state)
+    to_h.to_json(*serializer_state)
+  end
+    
   def method_missing(method_name, *args)
     return self[method_name] if key?(method_name) && args.empty?
     super

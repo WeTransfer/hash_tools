@@ -1,5 +1,5 @@
 module HashTools
-  VERSION = '1.1.1'
+  VERSION = '1.1.2'
   
   require_relative 'hash_tools/indifferent'
   

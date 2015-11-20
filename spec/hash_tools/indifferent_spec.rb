@@ -21,6 +21,16 @@ describe HashTools::Indifferent do
     expect(wrapper.keys).to eq(h_syms.keys)
   end
   
+  it 'serializes as a JSON object when used as an array member' do
+    require 'json'
+    h = {a: 1}
+    i = described_class.new(h)
+    array = [h, i]
+    dumped = JSON.dump(array)
+    loaded = JSON.load(dumped)
+    expect(loaded[1]).to eq(loaded[0]) # The object representations should be equivalent
+  end
+  
   it 'raises NoMethodError when accessing missing keys via dot notation' do
     h_syms = {a: 1, 'b' => 2}
     wrapper = described_class.new(h_syms)
