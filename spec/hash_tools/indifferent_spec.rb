@@ -56,6 +56,20 @@ describe HashTools::Indifferent do
     expect(wrapper.keys).to eq(h_deep.keys)
   end
   
+  it 'supports has_non_empty?' do
+    h_deep = {:a => 1, :b => '', :c => false, :d => nil}
+    wrapper = described_class.new(h_deep)
+    
+    expect(wrapper).to be_value_present(:a)
+    
+    expect(wrapper).not_to be_value_present(:z)
+    expect(wrapper).not_to be_value_present('z')
+    
+    expect(wrapper).not_to be_value_present(:b)
+    expect(wrapper).not_to be_value_present(:c)
+    expect(wrapper).not_to be_value_present(:d)
+  end
+  
   it 'supports map' do
     h_deep = {:a => {:b => 1}, 'b' => {'b' => 2}}
     wrapper = described_class.new(h_deep)

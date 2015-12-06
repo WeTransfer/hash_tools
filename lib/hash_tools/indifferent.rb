@@ -57,6 +57,16 @@ class HashTools::Indifferent < SimpleDelegator
     __getobj__.has_key?( __transform_key__(k))
   end
   
+  # Checks if the value at the given key is non-empty
+  #
+  # @param k[String,Symbol] the key to check
+  def value_present?(k)
+    return false unless key?(k)
+    v = self[k]
+    return false unless v
+    return !v.to_s.empty?
+  end
+  
   # Yields each key - value pair of the indifferent.
   # If the value is a Hash as well, that hash will be wrapped in an Indifferent before returning
   def each(&blk)
