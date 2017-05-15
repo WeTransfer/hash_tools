@@ -70,6 +70,14 @@ describe HashTools::Indifferent do
     expect(wrapper).not_to be_value_present(:d)
   end
   
+  it 'supports being an argument to Hash#merge!' do
+    h_deep = {:a => 1, :b => '', :c => false, :d => nil}
+    wrapper = described_class.new(h_deep)
+    
+    target = {'foo' => true}
+    target.merge!(wrapper)
+  end
+  
   it 'supports map' do
     h_deep = {:a => {:b => 1}, 'b' => {'b' => 2}}
     wrapper = described_class.new(h_deep)

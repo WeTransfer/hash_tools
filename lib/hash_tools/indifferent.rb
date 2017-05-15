@@ -113,9 +113,13 @@ class HashTools::Indifferent < SimpleDelegator
   def respond_to_missing?(method_name, include_private=false)
     key?(method_name)
   end
-  
+
+  def to_hash
+    __getobj__.to_hash
+  end
+
   alias_method :has_key?, :key?
-  
+
   private
   
   def __transform_key__(k)
