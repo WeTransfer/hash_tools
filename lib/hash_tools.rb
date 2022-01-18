@@ -1,11 +1,9 @@
 module HashTools
-  VERSION = '1.2.3'
-  
   require_relative 'hash_tools/indifferent'
-  
+
   FWD_SLASH = '/' # Used as the default separator for deep_fetch
   INT_KEY_RE = /^\-?\d+$/ # Regular expression to detect array indices in the path ("phones/0/code")
-  
+
   # Fetch a deeply-nested hash key from a hash, using a String representing a path
   #
   #     deep_fetch({
@@ -31,7 +29,7 @@ module HashTools
       end
     end
   end
-  
+
   # Fetches multiple keys from a deep hash, using a Strings representing paths
   #
   #     deep_fetch({
@@ -48,7 +46,7 @@ module HashTools
   def deep_fetch_multi(hash, *key_paths, separator: FWD_SLASH)
     key_paths.map{|k| deep_fetch(hash, k, separator: separator) }
   end
-  
+
   # Fetches a deeply nested key from each of the Hashes in a given Array.
   #
   #     arr = [
@@ -64,7 +62,7 @@ module HashTools
   def deep_map_value(enum_of_hashes, path, separator: FWD_SLASH)
     enum_of_hashes.map{|h| deep_fetch(h, path, separator: separator)}
   end
-  
+
   # Recursively transform string keys and values of a passed
   # Hash or Array using the passed transformer
   #
@@ -74,7 +72,7 @@ module HashTools
   def transform_string_keys_and_values_of(any, &transformer)
     transform_string_values_of(transform_keys_of(any, &transformer), &transformer)
   end
-  
+
   # Recursively convert string values in nested hashes and
   # arrays using a passed block. The block will receive the String
   # to transform and should return a transformed string.
@@ -97,7 +95,7 @@ module HashTools
       any
     end
   end
-  
+
   # Recursively convert hash keys using a block.
   # using a passed block. The block will receive a hash key
   # to be transformed and should return a transformed key
@@ -122,7 +120,7 @@ module HashTools
       any
     end
   end
-  
+
   # Returns an {HashTools::Indifferent} wrapper for the given Hash.
   #
   # @param hash [Hash] the Hash to wrap
@@ -130,6 +128,6 @@ module HashTools
   def indifferent(hash)
     Indifferent.new(hash)
   end
-  
+
   extend self
 end
