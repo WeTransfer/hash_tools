@@ -1,6 +1,6 @@
 AllCops:
   NewCops: disable
-  TargetRubyVersion: 3.0
+  TargetRubyVersion: 2.6
 
 Layout/ArgumentAlignment:
   EnforcedStyle: with_fixed_indentation
@@ -16,6 +16,13 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - "spec/**/*"
 
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+
+Metrics/MethodLength:
+  Max: 50
+
 Style/Documentation:
   Enabled: false
 
@@ -27,3 +34,9 @@ Style/IfUnlessModifier:
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
+
+Style/GuardClause:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false

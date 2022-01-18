@@ -20,9 +20,9 @@ module HashTools
     #
     # @param k the key to fetch
     # @return the value, wrapped in {Indifferent} if it is a Hash
-    def [](k)
-      v = __getobj__[__transform_key__(k)]
-      __rewrap__(v)
+    def [](key)
+      value = __getobj__[__transform_key__(key)]
+      __rewrap__(value)
     end
 
     # Set a value in the Hash, bu supplying a Symbol or a String as a key.
@@ -31,8 +31,8 @@ module HashTools
     # @param k the key to set
     # @param v the value to set
     # @return v
-    def []=(k, v)
-      __getobj__[__transform_key__(k)] = v
+    def []=(key, value)
+      __getobj__[__transform_key__(key)] = value
     end
 
     # Fetch a value, by supplying a Symbol or a String as a key.
@@ -41,52 +41,52 @@ module HashTools
     # @param k the key to set
     # @param blk the block for no value
     # @return v
-    def fetch(k, &blk)
-      v = __getobj__.fetch(__transform_key__(k), &blk)
-      __rewrap__(v)
+    def fetch(key, &blk)
+      value = __getobj__.fetch(__transform_key__(key), &blk)
+      __rewrap__(value)
     end
 
     # Get the keys of the Hash. The keys are returned as-is (both Symbols and Strings).
     #
     # @return [Array] an array of keys
     def keys
-      __getobj__.keys.map { |k| __transform_key__(k) }
+      __getobj__.keys.map { |key| __transform_key__(key) }
     end
 
     # Checks for key presence whether the key is a String or a Symbol
     #
     # @param k[String,Symbol] the key to check
-    def key?(k)
-      __getobj__.key?(__transform_key__(k))
+    def key?(key)
+      __getobj__.key?(__transform_key__(key))
     end
 
     # Checks if the value at the given key is non-empty
     #
     # @param k[String,Symbol] the key to check
-    def value_present?(k)
-      return false unless key?(k)
+    def value_present?(key)
+      return false unless key?(key)
 
-      v = self[k]
-      return false unless v
+      value = self[key]
+      return false unless value
 
-      !v.to_s.empty?
+      !value.to_s.empty?
     end
 
     # Yields each key - value pair of the indifferent.
     # If the value is a Hash as well, that hash will be wrapped in an Indifferent before returning
     def each(&blk)
-      __getobj__.each do |k, v|
-        blk.call([__transform_key__(k), __rewrap__(v)])
+      __getobj__.each do |key, value|
+        blk.call([__transform_key__(key), __rewrap__(value)])
       end
     end
 
     # Yields each key - value pair of the indifferent.
     # If the value is a Hash as well, that hash will be wrapped in an Indifferent before returning
     def each_pair
-      o = __getobj__
-      keys.each do |k|
-        value = o[__transform_key__(k)]
-        yield(k, __rewrap__(value))
+      object = __getobj__
+      keys.each do |key|
+        value = object[__transform_key__(key)]
+        yield(key, __rewrap__(value))
       end
     end
 
@@ -94,9 +94,9 @@ module HashTools
     # the block the keys will be either Strings or Symbols depending on what is used in the
     # underlying Hash).
     def map
-      keys.map do |k|
-        tk = __transform_key__(k)
-        yield [tk, __rewrap__(__getobj__[tk])]
+      keys.map do |key|
+        transform_key = __transform_key__(key)
+        yield [transform_key, __rewrap__(__getobj__[transform_key])]
       end
     end
 
@@ -128,20 +128,20 @@ module HashTools
 
     private
 
-    def __transform_key__(k)
-      if __getobj__.key?(k.to_sym)
-        k.to_sym
+    def __transform_key__(key)
+      if __getobj__.key?(key.to_sym)
+        key.to_sym
       else
-        k.to_s
+        key.to_s
       end
     end
 
-    def __rewrap__(v)
-      return v if v.is_a?(self.class)
-      return self.class.new(v) if v.is_a?(Hash)
-      return v.map { |e| __rewrap__(e) } if v.is_a?(Array)
+    def __rewrap__(value)
+      return value if value.is_a?(self.class)
+      return self.class.new(value) if value.is_a?(Hash)
+      return value.map { |e| __rewrap__(e) } if value.is_a?(Array)
 
-      v
+      value
     end
   end
 end

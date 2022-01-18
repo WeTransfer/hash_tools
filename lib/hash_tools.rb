@@ -15,7 +15,8 @@ module HashTools
   #     }, 'a/b/c') #=> value
   #
   # @param hash [Hash] the (potentially deep) string-keyed Hash to fetch the value from
-  # @param path [String] the path to the item in `hash`. The path may contain numbers for deeply nested arrays ('foo/0/bar')
+  # @param path [String] the path to the item in `hash`. The path may contain
+  # numbers for deeply nested arrays ('foo/0/bar')
   # @param separator [String] the path separator, defaults to '/'
   # @param default_blk The default value block for when there is no value.
   # @return the fetched value or the value of the default_block
@@ -42,7 +43,8 @@ module HashTools
   #     }, 'a/b', 'z') #=> [value, 1]
   #
   # @param hash [Hash] the (potentially deep) string-keyed Hash to fetch the value from
-  # @param key_paths [String] the paths to the items in `hash`. The paths may contain numbers for deeply nested arrays ('foo/0/bar')
+  # @param key_paths [String] the paths to the items in `hash`. The paths may
+  # contain numbers for deeply nested arrays ('foo/0/bar')
   # @param separator [String] the path separator, defaults to '/'
   # @return [Array] the fetched values
   def deep_fetch_multi(hash, *key_paths, separator: FWD_SLASH)
