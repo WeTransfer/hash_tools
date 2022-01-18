@@ -47,10 +47,6 @@ RSpec.describe HashTools do
     expect(t.transform_keys_of(a, &uppercase)).to eq(ref)
   end
 
-  it "exposes methods on the module itself" do
-    expect(HashTools).to respond_to(:transform_keys_of)
-  end
-
   describe ".transform_string_values_of" do
     it "transforms the string value" do
       x = "foo"
@@ -91,37 +87,37 @@ RSpec.describe HashTools do
     end
 
     it "accepts a block for a default value" do
-      v = described_class.deep_fetch(deep, "bar/nonexistent") { :default }
+      v = t.deep_fetch(deep, "bar/nonexistent") { :default }
       expect(v).to eq(:default)
     end
 
     it "fetches deep keys from a hash keyed by strings" do
-      expect(described_class.deep_fetch(deep, "foo")).to eq(deep.fetch("foo"))
-      expect(described_class.deep_fetch(deep, "bar/baz")).to eq(deep.fetch("bar").fetch("baz"))
+      expect(t.deep_fetch(deep, "foo")).to eq(deep.fetch("foo"))
+      expect(t.deep_fetch(deep, "bar/baz")).to eq(deep.fetch("bar").fetch("baz"))
     end
 
     it "fetches deep keys with a custom separator" do
-      expect(described_class.deep_fetch(deep, "bar.baz", separator: ".")).to eq(deep.fetch("bar").fetch("baz"))
+      expect(t.deep_fetch(deep, "bar.baz", separator: ".")).to eq(deep.fetch("bar").fetch("baz"))
     end
 
     it "causes a KeyError to be raised for missing keys" do
       expect do
-        described_class.deep_fetch(deep, "bar/nonexistent")
+        t.deep_fetch(deep, "bar/nonexistent")
       end.to raise_error(KeyError, 'key not found: "nonexistent"')
     end
 
     it "allows fetches from arrays" do
-      expect(described_class.deep_fetch(deep, "array/0")).to eq(1)
-      expect(described_class.deep_fetch(deep, "array/-1")).to eq(3)
+      expect(t.deep_fetch(deep, "array/0")).to eq(1)
+      expect(t.deep_fetch(deep, "array/-1")).to eq(3)
     end
 
     it "allows fetches from hashes within arrays" do
-      expect(described_class.deep_fetch(deep, "array-with-hashes/0/name")).to eq("Joe")
+      expect(t.deep_fetch(deep, "array-with-hashes/0/name")).to eq("Joe")
       expect do
-        described_class.deep_fetch(deep, "array-with-hashes/10/name")
+        t.deep_fetch(deep, "array-with-hashes/10/name")
       end.to raise_error(IndexError, /index 10 outside of array bounds/)
 
-      default_value = described_class.deep_fetch(deep, "array-with-hashes/0/jake") { :default }
+      default_value = t.deep_fetch(deep, "array-with-hashes/0/jake") { :default }
       expect(default_value).to eq(:default)
     end
   end
@@ -139,16 +135,16 @@ RSpec.describe HashTools do
     end
 
     it "fetches mutiple keys" do
-      expect(described_class.deep_fetch_multi(deep, "foo", "bar/baz")).to eq([1, 2])
+      expect(t.deep_fetch_multi(deep, "foo", "bar/baz")).to eq([1, 2])
     end
 
     it "fetches deep keys with a custom separator" do
-      expect(described_class.deep_fetch_multi(deep, "foo", "bar.baz", separator: ".")).to eq([1, 2])
+      expect(t.deep_fetch_multi(deep, "foo", "bar.baz", separator: ".")).to eq([1, 2])
     end
 
     it "causes a KeyError to be raised for missing keys" do
       expect do
-        described_class.deep_fetch_multi(deep, "foo", "nonexistent")
+        t.deep_fetch_multi(deep, "foo", "nonexistent")
       end.to raise_error(KeyError)
     end
   end
@@ -159,7 +155,7 @@ RSpec.describe HashTools do
         { "foo" => 5 },
         { "foo" => 6 }
       ]
-      expect(described_class.deep_map_value(v, "foo")).to eq([5, 6])
+      expect(t.deep_map_value(v, "foo")).to eq([5, 6])
     end
 
     it "deep maps the values with a custom separator" do
@@ -167,7 +163,7 @@ RSpec.describe HashTools do
         { "foo" => { "bar" => 1 } },
         { "foo" => { "bar" => 2 } }
       ]
-      expect(described_class.deep_map_value(v, "foo-bar", separator: "-")).to eq([1, 2])
+      expect(t.deep_map_value(v, "foo-bar", separator: "-")).to eq([1, 2])
     end
   end
 end
