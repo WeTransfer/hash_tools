@@ -1,8 +1,10 @@
-module HashTools
-  require_relative 'hash_tools/indifferent'
+# frozen_string_literal: true
 
-  FWD_SLASH = '/' # Used as the default separator for deep_fetch
-  INT_KEY_RE = /^\-?\d+$/ # Regular expression to detect array indices in the path ("phones/0/code")
+module HashTools
+  require_relative "hash_tools/indifferent"
+
+  FWD_SLASH = "/" # Used as the default separator for deep_fetch
+  INT_KEY_RE = /^-?\d+$/.freeze # Regular expression to detect array indices in the path ("phones/0/code")
 
   # Fetch a deeply-nested hash key from a hash, using a String representing a path
   #
@@ -44,7 +46,7 @@ module HashTools
   # @param separator [String] the path separator, defaults to '/'
   # @return [Array] the fetched values
   def deep_fetch_multi(hash, *key_paths, separator: FWD_SLASH)
-    key_paths.map{|k| deep_fetch(hash, k, separator: separator) }
+    key_paths.map { |k| deep_fetch(hash, k, separator: separator) }
   end
 
   # Fetches a deeply nested key from each of the Hashes in a given Array.
@@ -60,7 +62,7 @@ module HashTools
   # @param separator [String] the path separator, defaults to '/'
   # @return [Array] the fetched values
   def deep_map_value(enum_of_hashes, path, separator: FWD_SLASH)
-    enum_of_hashes.map{|h| deep_fetch(h, path, separator: separator)}
+    enum_of_hashes.map { |h| deep_fetch(h, path, separator: separator) }
   end
 
   # Recursively transform string keys and values of a passed
@@ -81,11 +83,12 @@ module HashTools
   # @param transformer The block applied to each string value, recursively
   # @return the transformed value
   def transform_string_values_of(any, &transformer)
-    if any.is_a?(String)
+    case any
+    when String
       transformer.call(any)
-    elsif any.is_a?(Array)
-      any.map{|e| transform_string_values_of(e, &transformer) }
-    elsif any.is_a?(Hash)
+    when Array
+      any.map { |e| transform_string_values_of(e, &transformer) }
+    when Hash
       h = {}
       any.each_pair do |k, v|
         h[k] = transform_string_values_of(v, &transformer)
@@ -108,9 +111,10 @@ module HashTools
   # @param transformer the block to apply to each key, recursively
   # @return [Hash] the transformed Hash
   def transform_keys_of(any, &transformer)
-    if any.is_a?(Array)
-      return any.map{|e| transform_keys_of(e, &transformer) }
-    elsif any.is_a?(Hash)
+    case any
+    when Array
+      any.map { |e| transform_keys_of(e, &transformer) }
+    when Hash
       h = {}
       any.each_pair do |k, v|
         h[transformer.call(k.to_s)] = transform_keys_of(v, &transformer)
@@ -128,6 +132,4 @@ module HashTools
   def indifferent(hash)
     Indifferent.new(hash)
   end
-
-  extend self
 end
