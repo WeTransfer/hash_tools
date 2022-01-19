@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hash_tools (1.2.3)
+    hash_tools (1.2.4)
 
 GEM
   remote: https://rubygems.org/
