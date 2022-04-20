@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hash_tools (1.2.4)
+    hash_tools (1.2.5)
 
 GEM
   remote: https://rubygems.org/
@@ -53,4 +53,4 @@ DEPENDENCIES
   rubocop (~> 1.21)
 
 BUNDLED WITH
-   2.3.4
+   2.3.10
