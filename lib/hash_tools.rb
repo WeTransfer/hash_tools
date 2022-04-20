@@ -134,4 +134,6 @@ module HashTools
   def indifferent(hash)
     Indifferent.new(hash)
   end
+
+  extend self
 end
